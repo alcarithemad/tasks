@@ -1,0 +1,41 @@
+bg_color = #2B2B2B
+link_color = #DE1B1B
+text_color = #E9E581
+body
+	background: bg_color
+	color: text_color
+	font-family: Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif;
+	font-size: 1.25em
+	line-height: 1.4
+	padding-bottom: 5em
+	padding-left: 10%
+	padding-right: 10%
+	padding-top: 1.25em
+	text-align: justify
+	text-justify: auto
+	font-weight: 200
+
+h1
+	color = link_color
+	font-size: 3em
+	line-height: 0.9
+	& + p
+		font-size:1.15em
+
+a
+	color: link_color
+	text-decoration: none
+	&:hover, &:focus, &:active
+		color: lighten(link_color, 15%)
+
+div.nav a
+	color: text_color
+	margin-left: 0em
+	margin-right: 0em
+	padding: 0.5em
+	text-decoration: none
+	&:hover, &:focus, &:active
+		color: lighten(text_color, 15%)
+
+div.nav
+	text-align: right

@@ -3,6 +3,7 @@ require 'sinatra'
 require 'slim'
 require 'stylus'
 require 'stylus/tilt'
+require_relative 'date_helper.rb'
 
 tw = Rtasklib::TW.new('~/.task')
 
@@ -33,6 +34,8 @@ tasks = tw.all
 puts tasks[0].description
 
 get "/" do
+	@title = "Tasks"
+	@tasklist = tasks
 	slim :index
 end
 

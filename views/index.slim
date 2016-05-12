@@ -1,1 +1,9 @@
-h1 darling
+h1 Tasks
+
+- @tasklist.sort_by {|t| t.due}
+- unless @tasklist.empty?
+  - for task in @tasklist do
+    a href="/task.html" #{task.description}
+    - reltime = time_in_words_ontime(task.due.to_time.to_i)
+    blockquote #{reltime}
+    br

@@ -2,6 +2,15 @@
 # of ActionView and modified to base it all on the Epoch. Give credit where credit is due.
 
 # from_time expects another judgement from Epoch (e.g, Time.whatever.to_i)
+def time_in_words(from_time, to_time = Time.now.to_i, include_seconds = false)
+	distance_in_seconds = (to_time - from_time)
+	if distance_in_seconds > 0
+		time_in_words_late(from_time, to_time, include_seconds = false)
+	else
+		time_in_words_ontime(from_time, to_time, include_seconds = false)
+	end
+end
+
 def time_in_words_late(from_time, to_time = Time.now.to_i, include_seconds = false)
 	distance_in_minutes = (((to_time - from_time).abs)/60).round
 	distance_in_seconds = ((to_time - from_time).abs).round

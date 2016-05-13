@@ -5,7 +5,7 @@ h2 Tasks
 - @tasklist = timeful + timeless
 - unless @tasklist.empty?
   - for task in @tasklist do
-    - reltime = task.due == nil ? "in no time" : time_in_words_ontime(task.due.to_time.to_i)
+    - reltime = task.due == nil ? "in no time" : time_in_words(task.due.to_time.to_i)
     blockquote
       a href="/task?uuid=#{task.uuid}" #{task.description}
       span< #{reltime}

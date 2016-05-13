@@ -2,8 +2,9 @@ h2 Task
 
 - task_index = @tasklist.index { |t| t.uuid == @uuid }
 - task = @tasklist[task_index]
-- reltime = task.due == nil ? "in no time" : time_in_words_ontime(task.due.to_time.to_i)
-p #{task.description} #{reltime}
+- reltime = task.due == nil ? "in no time" : time_in_words(task.due.to_time.to_i)
+p Description: #{task.description}
+p Due: #{reltime}
 p project: #{task.project == nil ? "no project" : task.project}
 
 a href="/complete?uuid=#{@uuid}" Complete

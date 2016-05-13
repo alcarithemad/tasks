@@ -2,9 +2,8 @@ h2 Task
 
 - task_index = @tasklist.index { |t| t.uuid == @uuid }
 - task = @tasklist[task_index]
-- reltime = time_in_words_ontime(task.due.to_time.to_i)
+- reltime = task.due == nil ? "in no time" : time_in_words_ontime(task.due.to_time.to_i)
 p #{task.description} #{reltime}
-p project: #{task.project}
+p project: #{task.project == nil ? "no project" : task.project}
 
-form action="/" method="POST"
-    input.button type="submit" value="Complete"
+a href="/complete?uuid=#{@uuid}" Complete

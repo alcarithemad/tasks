@@ -32,6 +32,7 @@ tasks = tw.all
 #
 
 get "/" do
+	tasks = tw.all
 	@tasklist = tasks
 	@title = "Tasks"
 	slim :index
@@ -48,6 +49,15 @@ get "/sync" do
 	base = params[:page]
 	puts query
 	redirect base
+end
+
+get "/complete" do
+	@tasklist = tasks
+	uuid = params[:uuid]
+	task_index = @tasklist.index { |t| t.uuid == uuid }
+	task_id = @tasklist[task_index].id
+	tw.done!(ids: task_id)
+	redirect "/"
 end
 
 get "/main.css" do

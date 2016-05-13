@@ -4,4 +4,7 @@ html
     title = @title
     link rel="stylesheet" href="/main.css"
     body
+      div.nav
+        a(href="/") home
+        a(href="/sync?page=#{request.fullpath}") sync
       == yield

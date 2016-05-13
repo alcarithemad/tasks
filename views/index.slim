@@ -1,9 +1,11 @@
-h1 Tasks
+h2 Tasks
 
-- @tasklist = @tasklist.sort_by {|t| t.due}
+- timeless, timeful = @tasklist.partition{|t| t.due == nil}
+- timeful = timeful.sort_by {|t| t.due}
+- @tasklist = timeful + timeless
 - unless @tasklist.empty?
   - for task in @tasklist do
-    - reltime = time_in_words_ontime(task.due.to_time.to_i)
+    - reltime = task.due == nil ? "in no time" : time_in_words_ontime(task.due.to_time.to_i)
     blockquote
-      a href="/task.html" #{task.description}
+      a href="/task?uuid=#{task.uuid}" #{task.description}
       span< #{reltime}

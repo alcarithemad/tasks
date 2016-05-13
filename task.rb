@@ -31,12 +31,23 @@ tasks = tw.all
 #=> ["author", "estimate"]
 #
 
-puts tasks[0].description
-
 get "/" do
-	@title = "Tasks"
 	@tasklist = tasks
+	@title = "Tasks"
 	slim :index
+end
+
+get "/task" do
+	@tasklist = tasks
+	@uuid = params[:uuid]
+	slim :task
+end
+
+get "/sync" do
+	tw.sync!
+	base = params[:page]
+	puts query
+	redirect base
 end
 
 get "/main.css" do

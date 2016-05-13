@@ -7,4 +7,9 @@ p Description: #{task.description}
 p Due: #{reltime}
 p project: #{task.project == nil ? "no project" : task.project}
 
-a href="/complete?uuid=#{@uuid}" Complete
+a href="/action?action=done&uuid=#{@uuid}" Complete
+span width="10em"
+a href="/action?action=delete&uuid=#{@uuid}" Delete
+
+javascript:
+  alert("woah there!")

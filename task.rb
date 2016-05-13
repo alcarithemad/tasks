@@ -47,16 +47,20 @@ end
 get "/sync" do
 	tw.sync!
 	base = params[:page]
-	puts query
 	redirect base
 end
 
-get "/complete" do
+get "/action" do
 	@tasklist = tasks
 	uuid = params[:uuid]
 	task_index = @tasklist.index { |t| t.uuid == uuid }
 	task_id = @tasklist[task_index].id
-	tw.done!(ids: task_id)
+	action = params[:action]
+	if action == "done"
+		tw.done!(ids: task_id)
+	elsif action == "delete"
+		tw.delete!(ids: task_id)
+	end
 	redirect "/"
 end
 

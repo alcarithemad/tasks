@@ -1,8 +1,7 @@
 extends layout
 
 block content
-	h2 #{title}
 	each this_date, i in dates
 		blockquote
-			a(href="#{tasks[i]['uuid']}") #{tasks[i]['description']}
+			a(href="/task?uuid=#{tasks[i]['uuid']}") #{tasks[i]['description']}
 			span &nbsp#{this_date}

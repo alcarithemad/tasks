@@ -3,6 +3,10 @@ html
 	head
 		title tasks
 		link(rel='stylesheet', href="#{url_for('static', filename='main.css')}")
+		div.nav
+			a(href="/") tasks
+			a(href="/add") add
+			a(href="/sync") sync
 		block head
 	body
 		h2 #{title}

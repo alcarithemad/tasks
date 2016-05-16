@@ -1,7 +1,8 @@
 extends layout
 
 block content
-	each this_date, i in dates
+	each task in tasks
 		blockquote
-			a(href="/task?uuid=#{tasks[i]['uuid']}") #{tasks[i]['description']}
-			span &nbsp#{this_date}
+			- var index = tasks.index(task)
+			a(href="/task?index=#{index}") #{task['description']}
+			span &nbsp#{dates[index]}

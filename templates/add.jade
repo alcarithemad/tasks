@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	form(action="/action" method="POST")
+		input(class="task_input", type="text", name="description", placeholder="description")
+		br
+		input(class="task_input", type="text", name="project", placeholder="project")
+		br
+		input(class="task_cal", type="date", name="date")
+		br
+		input(class="task_cal", type="time", name="time")
+		br
+		input(class="task_cal", type="text", name="action", value="add", style="display: none")
+		br
+		button(class="task_button", name="submit") submit

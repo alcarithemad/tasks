@@ -2,12 +2,21 @@ doctype html
 html
 	head
 		title tasks
+		link(rel='stylesheet', href="#{url_for('static', filename='semantic.css')}")
 		link(rel='stylesheet', href="#{url_for('static', filename='main.css')}")
-		div.nav
-			a(href="/") tasks
-			a(href="/add") add
-			a(href="/sync") sync
+		script(src="https://code.jquery.com/jquery-2.2.3.min.js", integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=", crossorigin="anonymous")
+
+		script(src="#{url_for('static', filename='semantic.js')}")
+
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+
 		block head
 	body
-		h2 #{title}
-		block content
+		div.ui.right.aligned.container
+			div.ui.compact.menu.secondary
+				a.item(href="/") tasks
+				a.item(href="/add") add
+				a.item(href="/sync") sync
+		div
+			h2 #{title}
+			block content

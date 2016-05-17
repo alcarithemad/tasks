@@ -105,6 +105,7 @@ def action():
         if action == "done":
             task_id = int(request.args.get('id'))
             w.task_done(id=task_id)
+            w.sync()
     elif request.method == "POST":
         action = request.form['action']
         if action == "add":

@@ -110,15 +110,16 @@ def action():
         action = request.form['action']
         if action == "add":
             task_description = request.form['description']
-            task_project = request.form['project']
-            task_date = request.form['date']
-            task_time = request.form['time']
-            fdatetime = ""
-            if task_date != "" and task_time != "":
-                pseudo_datetime = task_date + task_time
-                true_datetime = datetime.strptime(pseudo_datetime, "%Y-%m-%d%H:%M")
-                fdatetime = true_datetime.strftime("%Y%m%dT%H%M%SZ")
-            w.task_add(task_description, project=task_project, due=fdatetime)
+            if task_description != "":
+                task_project = request.form['project']
+                task_date = request.form['date']
+                task_time = request.form['time']
+                fdatetime = ""
+                if task_date != "" and task_time != "":
+                    pseudo_datetime = task_date + task_time
+                    true_datetime = datetime.strptime(pseudo_datetime, "%Y-%m-%d%H:%M")
+                    fdatetime = true_datetime.strftime("%Y%m%dT%H%M%SZ")
+                w.task_add(task_description, project=task_project, due=fdatetime)
     return redirect(url_for('index'))
 
 if __name__ == '__main__':

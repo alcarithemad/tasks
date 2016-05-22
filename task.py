@@ -7,7 +7,7 @@ from flask import Response
 from flask import session
 
 from taskw import TaskWarrior
-from datetime import datetime
+from datetime import datetime, timedelta
 import humanize
 import pyjade
 import re
@@ -21,6 +21,7 @@ pending = []
 def task_load():
     global pending
     global relatimes
+    global realtimes
     global w
     tasks = w.load_tasks()
     pending = tasks['pending']
@@ -29,13 +30,17 @@ def task_load():
     pending.sort(key=lambda x: datetime.strptime(x['due'], '%Y%m%dT%H%M%SZ') if 'due' in x else large_date)
 
     relatimes = []
+    realtimes = []
     for task in pending:
         if 'due' in task:
             task_datetime = datetime.strptime(task['due'], "%Y%m%dT%H%M%SZ")
+            realtime = task_datetime.strftime("%b %d %Y %H:%M:%S")
             relatime = humanize.naturaltime(datetime.now() - task_datetime)
         else:
             relatime = "no time"
+            realtime = "no time"
         relatimes.append(relatime)
+        realtimes.append(realtime)
     return
 
 task_load()
@@ -53,12 +58,12 @@ with open('cred.txt') as f:
 
 user_pass = content[0].rstrip()
 
-@app.before_request
-def before_request():
-    route = request.url_rule
-    if ('logged' not in session):
-        if request.path != '/login' and not re.match('/static/', request.path):
-            return redirect(url_for('login'))
+# @app.before_request
+# def before_request():
+    # route = request.url_rule
+    # if ('logged' not in session):
+        # if request.path != '/login' and not re.match('/static/', request.path):
+            # return redirect(url_for('login'))
 
 @app.route('/')
 def index():
@@ -71,8 +76,10 @@ def tasks():
     task_index = int(request.args.get('index'))
     current_task = pending[task_index]
     relatime = relatimes[task_index]
+    realtime = realtimes[task_index]
+    print(realtime)
     return render_template('task.jade', title = "task",
-            task = current_task, due = relatime)
+            task = current_task, due = relatime, real_due = realtime)
 
 @app.route('/add')
 def add():
@@ -111,13 +118,17 @@ def action():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
-    if request.method == 'POST':
-        if request.form['pass'] == user_pass:
-            session['logged'] = True;
-            return redirect(url_for('index'))
-        else:
-            error = 'true'
-    return render_template('login.jade', error = error)
+    if 'logged' not in session:
+        if request.method == 'POST':
+            if request.form['pass'] == user_pass:
+                session['logged'] = True;
+                session.permanent = True
+                return redirect(url_for('index'))
+            else:
+                error = 'true'
+        return render_template('login.jade', error = error)
+    else:
+        return redirect(url_for('index'))
 
 if __name__ == '__main__':
     app.run(debug=True)

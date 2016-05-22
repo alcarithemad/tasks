@@ -1,8 +1,11 @@
 extends layout
 
 block content
-	p Description: #{task['description']}
-	p Due: #{due}
-	p project: #{task['project'] if 'project' in task else 'no project'}
+	p Description:
+		b &nbsp#{task['description']}
+	p Due:
+		b &nbsp#{due}
+	p project:
+		b &nbsp#{task['project'] if 'project' in task else 'no project'}
 	a(href="/action?action=done&id=#{task['id']}") Complete
 

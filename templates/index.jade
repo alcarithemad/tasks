@@ -5,4 +5,6 @@ block content
 		blockquote
 			- var index = tasks.index(task)
 			a(href="/task?index=#{index}") #{task['description']}
+			span &nbspfor
+				b &nbsp#{task['project']}
 			span &nbsp#{dates[index]}

@@ -8,7 +8,7 @@ block content
 		b &nbsp#{task['description']}
 		p#time Due:
 			b#relatime &nbsp#{due}
-			b#realtime &nbsp#{real_due}
+			b#realtime &nbsp#{real_due} UTC
 	p project:
 		b &nbsp#{task['project'] if 'project' in task else 'no project'}
 	a(href="/action?action=done&id=#{task['id']}") Complete

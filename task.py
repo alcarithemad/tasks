@@ -61,7 +61,7 @@ user_pass = content[0].rstrip()
 @app.before_request
 def before_request():
     route = request.url_rule
-    if ('logged' not in session):
+    if 'logged' not in request.cookies:
         if request.path != '/login' and not re.match('/static/', request.path):
             return redirect(url_for('login'))
 
@@ -118,17 +118,24 @@ def action():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
-    if 'logged' not in session:
+    if 'logged' not in request.cookies:
         if request.method == 'POST':
             if request.form['pass'] == user_pass:
-                session['logged'] = True;
-                session.permanent = True
-                return redirect(url_for('index'))
+                response = redirect(url_for('index'))
+                expire_date = datetime.now() + datetime.timedelta(days=2)
+                response.set_cookie('logged', 'True', expires = expire_date)
+                return response
             else:
                 error = 'true'
         return render_template('login.jade', error = error)
     else:
         return redirect(url_for('index'))
+@app.route('/logout')
+def logout():
+    response = redirect(url_for('login'))
+    response.set_cookie('logged', expires = 0)
+    return response
+
 
 if __name__ == '__main__':
-    app.run()
+    app.run(r

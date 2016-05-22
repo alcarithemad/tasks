@@ -1,0 +1,20 @@
+doctype html
+html
+	head
+		title login
+		link(rel='stylesheet', href="#{url_for('static', filename='semantic.css')}")
+		script(src="https://code.jquery.com/jquery-2.2.3.min.js", integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=", crossorigin="anonymous")
+		script(src="#{url_for('static', filename='semantic.js')}")
+
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+
+	body
+		div(style="width: 80%; margin: 200px auto 0 auto")
+				form.ui.form(action="", method="POST")
+					div.field
+						div.ui.action.input
+							input(type="password", name="pass", value="#{request.form.password}")
+							button.ui.button(name="submit") go
+				if error
+					div.ui.negative.message
+						p try again?

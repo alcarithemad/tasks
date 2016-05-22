@@ -58,12 +58,12 @@ with open('cred.txt') as f:
 
 user_pass = content[0].rstrip()
 
-# @app.before_request
-# def before_request():
-    # route = request.url_rule
-    # if ('logged' not in session):
-        # if request.path != '/login' and not re.match('/static/', request.path):
-            # return redirect(url_for('login'))
+@app.before_request
+def before_request():
+    route = request.url_rule
+    if ('logged' not in session):
+        if request.path != '/login' and not re.match('/static/', request.path):
+            return redirect(url_for('login'))
 
 @app.route('/')
 def index():
@@ -131,4 +131,4 @@ def login():
         return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()

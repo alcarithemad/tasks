@@ -1,6 +1,59 @@
 body {
-	margin: auto;
+	background: #000;
+	color: #0f0;
+	font-family: Consolas, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New;
+	margin: 20px auto auto auto;
 	width: 80%;
 	height: 80%;
-	text-align: left;
+
+	text-align: justify;
+	/*text-align: left;*/
+	text-justify: auto;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+	color: #fff;
+}
+
+div.nav a {
+	color: #0f0;
+	margin-left: 0em;
+	margin-right: 0em;
+	padding: 0.5em;
+	text-decoration: none;
+}
+
+div.nav a:hover,
+div.nav a:focus,
+div.nav a:active {
+	color: #26ff26;
+}
+
+div.nav {
+	text-align: right;
+}
+
+.input {
+	padding: 10px 10px;
+	border: none;
+	box-sizing: border-box;
+}
+.button {
+	background-color: white; /* Green */
+	border: none;
+	color: black;
+	padding: 10px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline;
+}
+.center {
+	margin: 30% auto auto auto;
 }

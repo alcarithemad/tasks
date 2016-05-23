@@ -6,9 +6,7 @@ body {
 	width: 80%;
 	height: 80%;
 
-	text-align: justify;
-	/*text-align: left;*/
-	text-justify: auto;
+	text-align: left;
 }
 
 a {

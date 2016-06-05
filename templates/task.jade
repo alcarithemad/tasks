@@ -11,4 +11,8 @@ block content
 			b#realtime &nbsp#{real_due} UTC
 	p project:
 		b &nbsp#{task['project'] if 'project' in task else 'no project'}
+	- if 'annotations' in task:
+		p Notes:
+		- for annotation in task['annotations']
+			blockquote #{annotation['description']}
 	a(href="/action?action=done&id=#{task['id']}") Complete

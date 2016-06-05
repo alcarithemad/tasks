@@ -86,9 +86,6 @@ def tasks():
     current_task = pending[task_index]
     relatime = relatimes[task_index]
     realtime = realtimes[task_index]
-    if 'annotation' in current_task:
-        annotation = current_task['annotation']
-        print(annotation)
     return render_template('task.jade', title = "task",
             task = current_task, due = relatime, real_due = realtime)
 
@@ -142,4 +139,4 @@ def login():
         return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

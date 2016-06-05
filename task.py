@@ -8,6 +8,7 @@ from flask import session
 
 from taskw import TaskWarrior
 from datetime import datetime, timedelta
+from base64 import b64encode
 import humanize
 import pyjade
 import re
@@ -49,7 +50,15 @@ task_load()
 
 app = Flask(__name__)
 
-app.secret_key = os.urandom(24)
+if os.path.isfile('secret.txt'):
+    with open('secret.txt') as f:
+        app.secret_key = f.readline()
+else:
+    secret = os.urandom(24)
+    utf_secret = b64encode(secret).decode('utf-8')
+    with open('secret.txt', 'a') as secret_file:
+        secret_file.write(utf_secret)
+    app.secret_key = utf_secret
 
 app.jinja_env.add_extension('pyjade.ext.jinja.PyJadeExtension')
 
@@ -77,7 +86,9 @@ def tasks():
     current_task = pending[task_index]
     relatime = relatimes[task_index]
     realtime = realtimes[task_index]
-    print(realtime)
+    if 'annotation' in current_task:
+        annotation = current_task['annotation']
+        print(annotation)
     return render_template('task.jade', title = "task",
             task = current_task, due = relatime, real_due = realtime)
 

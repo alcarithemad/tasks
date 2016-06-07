@@ -86,8 +86,18 @@ def tasks():
     current_task = pending[task_index]
     relatime = relatimes[task_index]
     realtime = realtimes[task_index]
-    return render_template('task.jade', title = "task",
+    return render_template('task.jade', title = "task", index = task_index,
             task = current_task, due = relatime, real_due = realtime)
+
+@app.route('/edit')
+def edit():
+    task_index = int(request.args.get('index'))
+    current_task = pending[task_index]
+    task_datetime = datetime.strptime(current_task['due'], "%Y%m%dT%H%M%SZ")
+    task_date = task_datetime.strftime("%Y-%m-%d")
+    task_time = task_datetime.strftime("%H:%M")
+    return render_template('edit.jade', title = "task",
+            task = current_task, t_date = task_date, t_time = task_time)
 
 @app.route('/add')
 def add():
@@ -120,6 +130,23 @@ def action():
                     true_datetime = datetime.strptime(pseudo_datetime, "%Y-%m-%d%H:%M")
                     fdatetime = true_datetime.strftime("%Y%m%dT%H%M%SZ")
                 w.task_add(task_description, project=task_project, due=fdatetime)
+        elif action == "update":
+            task_id = request.form['id']
+            id, current_task = w.get_task(id=task_id)
+            task_description = request.form['description']
+            current_task['description'] = task_description
+            current_task['project'] = request.form['project']
+            task_date = request.form['date']
+            task_time = request.form['time']
+            fdatetime = ""
+            if task_date != "" and task_time != "":
+                pseudo_datetime = task_date + task_time
+                true_datetime = datetime.strptime(pseudo_datetime, "%Y-%m-%d%H:%M")
+                fdatetime = true_datetime.strftime("%Y%m%dT%H%M%SZ")
+            current_task['due'] = fdatetime
+            w.task_update(current_task)
+
+
     return redirect(url_for('index'))
 
 # route for handling the login page logic

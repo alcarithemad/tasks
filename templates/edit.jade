@@ -1,0 +1,15 @@
+extends layout
+
+block content
+	form(action="/action", method="POST")
+		input.text_in(type="text", name="description", value="#{task['description']}", placeholder="description")
+
+		- var project = task['project'] if 'project' in task else ''
+		input(type="text", name="project", value="#{project}", placeholder="project")
+
+		input(type="date", value="#{t_date}", name="date")
+		input(type="time", value="#{t_time}", name="time")
+
+		input(type="text", name="action", value="update", style="display: none")
+		input(type="text", name="id", value="#{task['id']}", style="display: none")
+		button.button(name="submit") submit

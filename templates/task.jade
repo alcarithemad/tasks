@@ -15,4 +15,7 @@ block content
 		p Notes:
 		- for annotation in task['annotations']
 			blockquote #{annotation['description']}
+
+	a(href="/edit?index=#{index}") Edit
+	br
 	a(href="/action?action=done&id=#{task['id']}") Complete

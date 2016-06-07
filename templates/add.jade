@@ -2,13 +2,10 @@ extends layout
 
 block content
 	form(action="/action", method="POST")
-		div.field
-			input.text_in(type="text", name="description", placeholder="description")
-		div.field
-			input(type="text", name="project", placeholder="project")
-		div.field
-			input(type="date", name="date")
-		div.field
-			input(type="time", name="time")
+		input.text_in(type="text", name="description", placeholder="description")
+		input(type="text", name="project", placeholder="project")
+		input(type="date", name="date")
+		input(type="time", name="time")
+
 		input(type="text", name="action", value="add", style="display: none")
 		button.button(name="submit") submit

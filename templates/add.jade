@@ -3,7 +3,7 @@ extends layout
 block content
 	form(action="/action", method="POST")
 		div.field
-			input(type="text", name="description", placeholder="description")
+			input.text_in(type="text", name="description", placeholder="description")
 		div.field
 			input(type="text", name="project", placeholder="project")
 		div.field
@@ -11,4 +11,4 @@ block content
 		div.field
 			input(type="time", name="time")
 		input(type="text", name="action", value="add", style="display: none")
-		button.ui.button(name="submit") submit
+		button.button(name="submit") submit

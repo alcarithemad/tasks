@@ -44,7 +44,7 @@ div.nav {
 	box-sizing: border-box;
 }
 .button {
-	background-color: white; /* Green */
+	background-color: #26ff26; /* Green */
 	border: none;
 	color: black;
 	padding: 10px 10px;
@@ -55,3 +55,12 @@ div.nav {
 .center {
 	margin: 30% auto auto auto;
 }
+input {
+	width: 100%;
+	padding: 12px 20px;
+	background-color: black;
+	border: none;
+	color: #26ff26;
+	outline: none;
+}
+

@@ -108,13 +108,20 @@ def sync():
     w.sync()
     return redirect(url_for('index'))
 
+def t_datetime(task_date, task_time):
+    fdatetime = ""
+    if task_date != "" and task_time != "":
+        pseudo_datetime = task_date + task_time
+        true_datetime = datetime.strptime(pseudo_datetime, "%Y-%m-%d%H:%M")
+        fdatetime = true_datetime.strftime("%Y%m%dT%H%M%SZ")
+    return fdatetime
+
 @app.route('/action', methods=['GET', 'POST'])
 def action():
     action = request.args.get('action')
     if request.method == "GET":
         if action == "done":
-            task_id = int(request.args.get('id'))
-            w.task_done(id=task_id)
+            w.task_done(id=int(request.args.get('id')))
             w.sync()
     elif request.method == "POST":
         action = request.form['action']
@@ -122,31 +129,18 @@ def action():
             task_description = request.form['description']
             if task_description != "":
                 task_project = request.form['project']
-                task_date = request.form['date']
-                task_time = request.form['time']
-                fdatetime = ""
-                if task_date != "" and task_time != "":
-                    pseudo_datetime = task_date + task_time
-                    true_datetime = datetime.strptime(pseudo_datetime, "%Y-%m-%d%H:%M")
-                    fdatetime = true_datetime.strftime("%Y%m%dT%H%M%SZ")
+                fdatetime = t_datetime(request.form['date'], request.form['time'])
                 w.task_add(task_description, project=task_project, due=fdatetime)
         elif action == "update":
             task_id = request.form['id']
             id, current_task = w.get_task(id=task_id)
-            task_description = request.form['description']
-            current_task['description'] = task_description
+
+            current_task['description'] = request.form['description']
             current_task['project'] = request.form['project']
-            task_date = request.form['date']
-            task_time = request.form['time']
-            fdatetime = ""
-            if task_date != "" and task_time != "":
-                pseudo_datetime = task_date + task_time
-                true_datetime = datetime.strptime(pseudo_datetime, "%Y-%m-%d%H:%M")
-                fdatetime = true_datetime.strftime("%Y%m%dT%H%M%SZ")
+
+            fdatetime = t_datetime(request.form['date'], request.form['time'])
             current_task['due'] = fdatetime
             w.task_update(current_task)
-
-
     return redirect(url_for('index'))
 
 # route for handling the login page logic

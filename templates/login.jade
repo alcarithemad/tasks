@@ -10,7 +10,7 @@ html
 	body
 		div.center
 			form(action="", method="POST")
-				input.input(type="password", name="pass", value="#{request.form.password}")
+				input.input(type="password", name="pass", placeholder="password", value="#{request.form.password}")
 				button.button(name="submit") go
 			if error
 				p try again?
